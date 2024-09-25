@@ -22,16 +22,6 @@ class REST_API_Controller {
             // Register our schema callback.
             // 'schema' => array( $this, 'get_item_schema' ),
         ) );
-        // register_rest_route( $this->namespace, '/' . $this->resource_name . '/(?P<id>[\d]+)', array(
-        //     // Notice how we are registering multiple endpoints the 'schema' equates to an OPTIONS request.
-        //     array(
-        //         'methods'   => 'GET',
-        //         'callback'  => array( $this, 'get_item' ),
-        //         'permission_callback' => array( $this, 'get_item_permissions_check' ),
-        //     ),
-        //     // Register our schema callback.
-        //     'schema' => array( $this, 'get_item_schema' ),
-        // ) );
     }
 
     public function get_items_permissions_check() {
@@ -95,5 +85,9 @@ class REST_API_Controller {
                 }, array_values(array_unique( $migration_objects )) )
             ];
         }, array_unique( $migration_names ) );
+    }
+
+    public function get_item() {
+
     }
 }

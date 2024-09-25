@@ -50,9 +50,15 @@ final class Newspack_Migration_UI {
 		return $wpdb->get_results( "SELECT option_name, option_value FROM $wpdb->options WHERE option_name LIKE 'full_initial_migration1_%'", ARRAY_A );
 	}
 
+	public static function get_migration_names() {
+
+	}
+
 	public static function register_api_routes() {
 		require_once __DIR__ . '/class-newspack-migration-rest-api-controller.php';
+		require_once __DIR__ . '/class-newspack-migration-rest-api-migration-objects-controller.php';
 
+		(new \Newspack_MigrationUI\REST_API_Migration_Objects_Controller)->register_routes();
 		(new \Newspack_MigrationUI\REST_API_Controller)->register_routes();
 	}
 }
