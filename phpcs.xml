@@ -7,22 +7,39 @@
 	<rule ref="WordPress-VIP-Go" />
 
 	<rule ref="WordPress">
+		<!-- Use PSR-4 naming -->
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals" />
+		<exclude name="WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents" />
+		<exclude name="WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink" />
+
+		<!-- Only comment when neccessary -->
+		<exclude name="Squiz.Commenting.FileComment.Missing" />
+		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
+		<exclude name="Squiz.Commenting.ClassComment.Missing" />
+		<exclude name="Squiz.Commenting.FunctionComment.Missing" />
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
+		<exclude name="Squiz.Commenting.VariableComment.Missing" />
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax.Found" />
+		<exclude name="Universal.Operators.DisallowStandalonePostIncrementDecrement.PostIncrementFound" />
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.SpaceAfterFunction" />
+		<exclude name="Generic.Commenting.DocComment.MissingShort" />
 	</rule>
 
 	<rule ref="PHPCompatibilityWP"/>
-	<config name="testVersion" value="7.2"/>
+	<config name="testVersion" value="8.0"/>
 
 	<arg name="extensions" value="php"/>
 
 	<!-- Show sniff codes in all reports -->
 	<arg value="s"/>
 
-	<!-- Allow invoking just `phpcs` on command line without assuming STDIN for file input. -->
-	<file>.</file>
+	<file>newspack-migration-ui.php</file>
+	<file>includes</file>
 
-	<exclude-pattern>*/dev-lib/*</exclude-pattern>
-	<exclude-pattern>*/node_modules/*</exclude-pattern>
-	<exclude-pattern>*/vendor/*</exclude-pattern>
-	<exclude-pattern>*/dist/*</exclude-pattern>
 </ruleset>
