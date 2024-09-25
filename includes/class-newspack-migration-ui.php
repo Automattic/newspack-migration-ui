@@ -18,7 +18,24 @@ final class Newspack_Migration_UI {
 	 * Initializer.
 	 */
 	public static function init() {
+		add_action( 'admin_menu', [ __CLASS__, 'admin_page' ] );
+		add_action( 'rest_api_init', [ __CLASS__, 'register_api_routes' ] );
+	}
 
+	public static function admin_page() {
+		add_menu_page(
+			'Newspack Migration UI',
+			'Newspack Migration UI',
+			'manage_options',
+			'newspack-migration-ui',
+			[ __CLASS__, 'menu_page' ],
+		);
+	}
+
+	public static function menu_page() {
+		?>
+		Test
+		<?php
 	}
 
 	/**
@@ -32,5 +49,12 @@ final class Newspack_Migration_UI {
 
 		return $wpdb->get_results( "SELECT option_name, option_value FROM $wpdb->options WHERE option_name LIKE 'full_initial_migration1_%'", ARRAY_A );
 	}
+
+	public static function register_api_routes() {
+		require_once __DIR__ . '/class-newspack-migration-rest-api-controller.php';
+
+		(new \Newspack_MigrationUI\REST_API_Controller)->register_routes();
+	}
 }
+
 Newspack_Migration_UI::init();
