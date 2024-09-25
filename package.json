@@ -1,0 +1,104 @@
+{
+  "name": "newspack-migration-ui",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "cm": "newspack-scripts commit",
+    "semantic-release": "newspack-scripts release --files=newspack-migration-ui.php",
+    "build": "newspack-scripts build",
+    "start": "npm ci && newspack-scripts watch",
+    "watch": "newspack-scripts watch",
+    "test": "newspack-scripts test",
+    "lint": "npm run lint:scss && npm run lint:js && npm run lint:php:staged",
+    "lint:php:staged": "./vendor/bin/phpcs --filter=GitStaged",
+    "lint:js": "eslint --ext .js,.jsx src",
+    "lint:js:staged": "eslint --ext .js,.jsx",
+    "format:js": "prettier 'src/**/*.{js,jsx}' --write",
+    "lint:scss": "stylelint '**/*.scss' --syntax scss --config=./node_modules/newspack-scripts/config/stylelint.config.js",
+    "format:scss": "prettier --write '**/*.scss'",
+    "lint:scss:staged": "stylelint --syntax scss --config=./node_modules/newspack-scripts/config/stylelint.config.js",
+    "release:archive": "rm -rf release && mkdir -p release && rsync -r . ./release/newspack-migration-ui --exclude-from='./.distignore' && cd release && zip -r newspack-migration-ui.zip newspack-migration-ui",
+    "release": "npm run build && npm run semantic-release",
+    "postinstall": "rm -rf node_modules/newspack-scripts/node_modules/prettier"
+  },
+  "lint-staged": {
+    "*.js": "npm run lint:js:staged",
+    "*.scss": "npm run lint:scss:staged",
+    "*.php": "npm run lint:php:staged"
+  },
+  "release": {
+    "branches": [
+      "release",
+      {
+        "name": "alpha",
+        "prerelease": "alpha"
+      }
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      [
+        "semantic-release-version-bump",
+        {
+          "files": "newspack-migration-ui.php",
+          "callback": "npm run release:archive"
+        }
+      ],
+      {
+        "path": "@semantic-release/git",
+        "assets": [
+          "newspack-migration-ui.php",
+          "package.json",
+          "package-lock.json",
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      "semantic-release-version-bump",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "./release/newspack-migration-ui.zip",
+              "label": "newspack-migration-ui.zip"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Automattic/newspack-migration-ui.git"
+  },
+  "license": "GPL-2.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Automattic/newspack-migration-ui/issues"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.1.0",
+    "@testing-library/react": "^12.1.2",
+    "@wordpress/browserslist-config": "^4.1.0",
+    "eslint": "^7.32.0",
+    "lint-staged": "^12.1.5",
+    "newspack-scripts": "^3.0.0",
+    "prettier": "npm:wp-prettier@^2.2.1-beta-1",
+    "stylelint": "^13.3.1"
+  }
+}
