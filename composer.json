@@ -3,18 +3,21 @@
   "description": "A visual interface for QA'ing site migrations.",
   "type": "wordpress-plugin",
   "require": {
+    "php": ">=8.1"
   },
   "require-dev": {
-    "automattic/vipwpcs": "^2.0",
-    "wp-coding-standards/wpcs": "^2.2",
+    "wp-coding-standards/wpcs": "^3.0",
+    "automattic/vipwpcs": "^3.0",
+    "phpcompatibility/phpcompatibility-wp": "*",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-    "phpcompatibility/phpcompatibility-wp": "^2.1",
     "brainmaestro/composer-git-hooks": "^2.8"
   },
   "license": "GPL-2.0-or-later",
   "scripts": {
     "post-install-cmd": [ "vendor/bin/cghooks add --no-lock" ],
-    "post-update-cmd": [ "vendor/bin/cghooks update" ]
+    "post-update-cmd": [ "vendor/bin/cghooks update" ],
+    "phpcs": "./vendor/bin/phpcs",
+    "phpcbf": "./vendor/bin/phpcbf"
   },
   "extra": {
     "hooks": {
@@ -24,6 +27,11 @@
       "commit-msg": [
         "cat $1 | ./node_modules/.bin/newspack-scripts commitlint"
       ]
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

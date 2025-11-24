@@ -2,6 +2,9 @@
 
 An interface for visually QA'ing site migrations.
 
+## Features
+* [Admin menu](docs/admin-menu.md)
+
 ## Development
 
 Run `composer install && npm install`.

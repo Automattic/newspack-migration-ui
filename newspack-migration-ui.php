@@ -21,5 +21,5 @@ if ( ! defined( 'NEWSPACK_MIGRATION_UI_PLUGIN_FILE' ) ) {
 
 // Include the main Newspack Migration UI class.
 if ( ! class_exists( 'Newspack_Migration_UI' ) ) {
-	include_once dirname( __FILE__ ) . '/includes/class-newspack-migration-ui.php';
+	include_once __DIR__ . '/includes/class-newspack-migration-ui.php';
 }
